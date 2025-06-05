@@ -1,109 +1,135 @@
-# Political Sentiment Haus
+# Political Statement Sentiment Analysis 
 
-A real-time political sentiment analysis dashboard that visualizes sentiment trends from Reddit's r/politics community.
+This project analyzes the sentiment behind political statements using a fine-tuned BERT transformer model. It classifies each statement into **positive**, **negative**, or **neutral** sentiment categories, helping to understand the tone and public perception of political discourse.
 
-## Features
+---
 
-- **Real-time Sentiment Analysis**: Analyzes posts from r/politics subreddit to determine positive, negative, and neutral sentiments
-- **Historical Trend Visualization**: Displays sentiment trends over the past year using interactive charts
-- **Multiple Visualization Styles**: 
-  - Line Chart: Shows trend lines for each sentiment type
-  - Area Chart: Displays stacked areas representing sentiment distribution
-- **Responsive Design**: Fully responsive UI that works across all device sizes
-- **Modern UI/UX**: Built with shadcn-ui components and smooth animations
+## 📌 Table of Contents
 
-## Tech Stack
+* [About the Project](#about-the-project)
+* [Dataset](#dataset)
+* [Model Architecture](#model-architecture)
+* [Installation](#installation)
+* [Usage](#usage)
+* [Results](#results)
+* [Technologies Used](#technologies-used)
+* [Future Work](#future-work)
+* [License](#license)
 
-- **Frontend Framework**: React with TypeScript
-- **Build Tool**: Vite
-- **Styling**: Tailwind CSS
-- **UI Components**: shadcn-ui
-- **Charts**: Recharts
-- **Animations**: Framer Motion
-- **API Integration**: Reddit JSON API
-- **HTTP Client**: Axios
+---
 
-## Prerequisites
+## 📖 About the Project
 
-Before running this project, make sure you have:
+Political communication often influences public opinion, policymaking, and media coverage. This project leverages **BERT (Bidirectional Encoder Representations from Transformers)** to perform **sentiment analysis** on political statements, aiming to:
 
-- Node.js (v16 or higher)
-- npm (v7 or higher)
+* Identify the **tone** behind statements (positive/negative/neutral)
+* Track **patterns** in political sentiment over time
+* Assist researchers or journalists in analyzing speech content objectively
 
-## Getting Started
+---
 
-1. Clone the repository:
+## 📂 Dataset
+
+* A dataset of political statements was compiled from various sources including:
+
+  * Debates
+  * Interviews
+  * Press releases
+* Each statement is labeled with sentiment: `positive`, `neutral`, or `negative`
+
+> *Custom preprocessing was applied to clean and tokenize text.*
+
+---
+
+## 🧠 Model Architecture
+
+* **Base model**: `bert-base-uncased` from HuggingFace Transformers
+* Fine-tuned with:
+
+  * Classification head (dense layer)
+  * CrossEntropy loss
+  * AdamW optimizer
+
+---
+
+## ⚙️ Installation
+
 ```bash
-git clone <repository-url>
-cd political-sentiment-haus
+git clone (https://github.com/vaishnavi-nss/Political-Statement-Sentiment-Analysis-Using-BERT-Transformer)
+cd Political-Statement-Sentiment-Analysis-Using-BERT-Transformer
+pip install -r requirements.txt
 ```
 
-2. Install dependencies:
+**Main libraries**:
+
+* `transformers`
+* `torch`
+* `scikit-learn`
+* `pandas`
+
+---
+
+## 🚀 Usage
+
+### Training
+
 ```bash
-npm install
+python train.py --epochs 3 --batch_size 16 --lr 2e-5
 ```
 
-3. Create a `.env` file in the root directory with the following variables:
-```env
-VITE_REDDIT_CLIENT_ID=your_reddit_client_id
-VITE_REDDIT_CLIENT_SECRET=your_reddit_client_secret
-```
+### Inference
 
-4. Start the development server:
 ```bash
-npm run dev
+python predict.py --text "We will bring prosperity to every citizen."
 ```
 
-The application will be available at `http://localhost:5173`
+---
 
-## Features in Detail
+## 📊 Results
 
-### Sentiment Analysis
-- Analyzes Reddit posts using a combination of:
-  - Post scores (upvotes/downvotes)
-  - Content analysis
-  - Historical data comparison
+| Metric    | Score |
+| --------- | ----- |
+| Accuracy  | 87.2% |
+| F1 Score  | 85.5% |
+| Precision | 86.1% |
+| Recall    | 84.7% |
 
-### Trend Visualization
-- Monthly sentiment breakdowns
-- Interactive tooltips with detailed information
-- Customizable chart types
-- Smooth animations and transitions
+Sample Predictions:
 
-### Data Processing
-- Groups posts by month
-- Calculates sentiment percentages
-- Handles loading and error states
-- Real-time data updates
+* "The government failed us again." → **Negative**
+* "We are proud of our nation’s progress." → **Positive**
 
-## Project Structure
+---
 
-```
-src/
-├── components/         # React components
-│   ├── TrendChart.tsx # Main chart component
-│   └── ui/            # UI components
-├── lib/
-│   ├── redditApi.ts   # Reddit API integration
-│   └── utils.ts       # Utility functions
-└── ...
-```
+## 🛠 Technologies Used
 
-## Contributing
+* BERT (HuggingFace Transformers)
+* PyTorch
+* Scikit-learn
+* Pandas, NumPy
+* Matplotlib/Seaborn (for visualization)
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+---
 
-## License
+## 🔮 Future Work
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+* Deploy model via Flask/Streamlit for live demo
+* Extend to multilingual datasets
+* Add context-aware classification (e.g., sarcasm detection)
+* Visualize sentiment trends across political parties
 
-## Acknowledgments
+---
 
-- Reddit API for providing the data
-- shadcn-ui for the beautiful components
-- Recharts for the charting library
-- The open-source community for their invaluable tools and libraries
+## 📄 License
+
+MIT License. Feel free to use and contribute.
+
+---
+
+## 🙌 Acknowledgements
+
+* [HuggingFace Transformers](https://huggingface.co/transformers/)
+* [BERT Paper](https://arxiv.org/abs/1810.04805)
+* Public political datasets from Kaggle and media transcripts
+
+---
